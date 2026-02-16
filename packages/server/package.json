@@ -1,0 +1,33 @@
+{
+  "name": "@my-project/server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsup",
+    "build:watch": "tsup --watch",
+    "clean": "rm -rf dist",
+    "start": "node dist/index.js",
+    "dev": "tsup --watch & node dist/index.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint \"src/**/*.{ts,tsx}\" \"tests/**/*.{ts,tsx}\"",
+    "lint:fix": "eslint \"src/**/*.{ts,tsx}\" \"tests/**/*.{ts,tsx}\" --fix",
+    "format": "prettier --check \"src/**/*.{ts,tsx,json,md}\"",
+    "format:fix": "prettier --write \"src/**/*.{ts,tsx,json,md}\"",
+    "typecheck": "tsc --noEmit",
+    "audit": "npm audit --audit-level=moderate",
+    "audit:fix": "npm audit fix",
+    "audit:fix-force": "npm audit fix --force"
+  },
+  "dependencies": {
+    "@my-project/library": "*",
+    "dotenv": "^17.2.3",
+    "fastify": "^5.6.2"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "@my-project/library",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "build:watch": "tsup --watch",
+    "clean": "rm -rf dist",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "lint:fix": "eslint \"src/**/*.{ts,tsx}\" --fix",
+    "format": "prettier --check \"src/**/*.{ts,tsx,json,md}\"",
+    "format:fix": "prettier --write \"src/**/*.{ts,tsx,json,md}\"",
+    "typecheck": "tsc --noEmit",
+    "audit": "npm audit --audit-level=moderate",
+    "audit:fix": "npm audit fix"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

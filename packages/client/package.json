@@ -1,0 +1,30 @@
+{
+  "name": "@my-project/client",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.browser.js",
+  "exports": {
+    ".": "./dist/index.browser.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "build:watch": "tsup --watch",
+    "clean": "rm -rf dist",
+    "start": "npx serve . -p 3001",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint \"src/**/*.{ts,tsx}\" \"tests/**/*.{ts,tsx}\"",
+    "lint:fix": "eslint \"src/**/*.{ts,tsx}\" \"tests/**/*.{ts,tsx}\" --fix",
+    "format": "prettier --check \"src/**/*.{ts,tsx,json,md}\"",
+    "format:fix": "prettier --write \"src/**/*.{ts,tsx,json,md}\"",
+    "typecheck": "tsc --noEmit",
+    "audit": "npm audit --audit-level=moderate",
+    "audit:fix": "npm audit fix"
+  },
+  "dependencies": {
+    "@my-project/library": "*"
+  },
+  "devDependencies": {}
+}

@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "noEmit": true,
+    // We're using a bundler (tsup) even for the server so we can avoid the
+    // .js extension in files
+    "module": "ESNext",
+    "moduleResolution": "Bundler"
+  },
+  "include": ["src/**/*", "__tests__/**/*", "tests/**/*", "migrations/**/*"]
+}

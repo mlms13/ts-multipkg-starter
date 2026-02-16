@@ -1,0 +1,44 @@
+{
+  "name": "my-project",
+  "version": "1.0.0",
+  "description": "Starter template for TypeScript projects",
+  "main": "index.js",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "build:watch": "npm run build:watch --workspaces --if-present",
+    "clean": "npm run clean --workspaces --if-present",
+    "start:server": "npm run start -w @my-project/server",
+    "start:client": "npm run start -w @my-project/client",
+    "dev": "npm run dev --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "test:watch": "npm run test:watch --workspaces --if-present",
+    "test:coverage": "npm run test:coverage --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "lint:fix": "npm run lint:fix --workspaces --if-present",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "audit": "npm run audit --workspaces --if-present",
+    "audit:fix": "npm run audit:fix --workspaces --if-present",
+    "audit:fix-force": "npm run audit:fix-force --workspaces --if-present"
+  },
+  "author": "Michael Martin",
+  "license": "MIT",
+  "devDependencies": {
+    "@eslint/js": "^9.16.0",
+    "@trivago/prettier-plugin-sort-imports": "^6.0.2",
+    "@typescript-eslint/eslint-plugin": "^8.55.0",
+    "@typescript-eslint/parser": "^8.55.0",
+    "eslint": "^9.16.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "globals": "^17.3.0",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.8.1",
+    "tsup": "^8.5.1",
+    "vitest": "^4.0.18"
+  }
+}

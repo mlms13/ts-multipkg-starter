@@ -38,6 +38,9 @@ coverage/
 .npm
 .eslintcache
 
+# Turborepo
+.turbo/
+
 # IDE files
 .vscode/
 .idea/

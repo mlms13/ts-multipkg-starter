@@ -33,6 +33,7 @@ This template makes some assumptions about project structure (e.g. it's currentl
 
 ### Monorepo Tooling
 
+- pnpm workspaces for package management, with a shared version catalog in `pnpm-workspace.yaml`
 - Turborepo + config
 
 ### Code Quality
@@ -46,6 +47,6 @@ This template makes some assumptions about project structure (e.g. it's currentl
 - Sub-packages own their own scripts, but each follows the same conventions
 - The root package exposes the same scripts, and it will run those scripts for each child package
 - When names are ambiguous, the default is "check" not "write"
-  - e.g. `npm run lint` will print lint errors, `npm run lint:fix` will attempt to rewrite files
-  - e.g. `npm run format` will print formatting errors, `npm run format:fix` will rewrite files
-  - e.g. `npm run audit` will print issues, `npm run audit:fix` or `npm run audit:fix-force` will make package updates
+  - e.g. `pnpm run lint` will print lint errors, `pnpm run lint:fix` will attempt to rewrite files
+  - e.g. `pnpm run format` will print formatting errors, `pnpm run format:fix` will rewrite files
+  - e.g. `pnpm run audit` will print issues, `pnpm run audit:fix` or `pnpm run audit:fix-force` will make package updates

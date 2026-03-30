@@ -20,11 +20,11 @@
     "format": "prettier --check \"src/**/*.{ts,tsx,json,md}\"",
     "format:fix": "prettier --write \"src/**/*.{ts,tsx,json,md}\"",
     "typecheck": "tsc --noEmit",
-    "audit": "npm audit --audit-level=moderate",
-    "audit:fix": "npm audit fix"
+    "audit": "pnpm audit --audit-level=moderate",
+    "audit:fix": "pnpm audit fix"
   },
   "dependencies": {
-    "@my-project/library": "*"
+    "@my-project/library": "workspace:*"
   },
   "devDependencies": {}
 }

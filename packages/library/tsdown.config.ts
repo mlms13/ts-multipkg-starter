@@ -1,9 +1,9 @@
-import { defineConfig } from 'tsup';
+import { defineConfig } from 'tsdown';
 
-import { baseTsupConfig } from '../../tsup.base.config';
+import { baseConfig } from '../../tsdown.base.config.ts';
 
 export default defineConfig({
-  ...baseTsupConfig,
+  ...baseConfig,
   entry: ['src/index.ts'],
   format: ['esm'],
   // Isomorphic: no platform-specific code, works in both Node and browser

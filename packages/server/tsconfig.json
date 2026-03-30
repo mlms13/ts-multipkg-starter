@@ -3,10 +3,18 @@
   "compilerOptions": {
     "outDir": "dist",
     "noEmit": true,
-    // We're using a bundler (tsup) even for the server so we can avoid the
-    // .js extension in files
+    // We're using a bundler (tsdown) even for the server so we can avoid the
+    // .js extension in imports
+    "types": [
+      "node"
+    ],
     "module": "ESNext",
     "moduleResolution": "Bundler"
   },
-  "include": ["src/**/*", "__tests__/**/*", "tests/**/*", "migrations/**/*"]
+  "include": [
+    "src/**/*",
+    "__tests__/**/*",
+    "tests/**/*",
+    "migrations/**/*"
+  ]
 }

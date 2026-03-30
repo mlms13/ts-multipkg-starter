@@ -10,7 +10,7 @@ This template makes some assumptions about project structure (e.g. it's currentl
 
 1. Clone this repo
 2. Edit `name`, `description`, and `author` in the root `package.json`
-3. Edit `globalName` in `packages/client/tsup.config.ts` if you publish an IIFE build—the default `"Client"` is generic and may collide with other scripts
+3. Edit the IIFE `name` in `packages/client/tsdown.config.ts` if you publish a browser build—the default `"Client"` is generic and may collide with other scripts
 4. Edit `eslint.config.mjs` to customize paths to packages (currently expects `packages/server` and `packages/client`)
   - The server gets Node globals
   - The client gets browser globals and React Hooks rules.
@@ -25,7 +25,7 @@ This template makes some assumptions about project structure (e.g. it's currentl
 ### TypeScript Config
 
 - strict settings related to soundness and correctness
-- `tsup` everywhere for building (both client and server)
+- `tsdown` everywhere for building (both client and server)
 
 ### Common Libraries
 

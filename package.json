@@ -2,8 +2,8 @@
   "name": "my-project",
   "version": "1.0.0",
   "packageManager": "pnpm@10.33.0",
+  "type": "module",
   "description": "Starter template for TypeScript projects",
-  "main": "index.js",
   "scripts": {
     "build": "turbo run build",
     "build:watch": "pnpm -r --if-present run build:watch",
@@ -36,7 +36,7 @@
     "globals": "catalog:",
     "lint-staged": "catalog:",
     "prettier": "catalog:",
-    "tsup": "catalog:",
+    "tsdown": "catalog:",
     "turbo": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"

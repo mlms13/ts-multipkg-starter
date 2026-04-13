@@ -21,7 +21,8 @@
     "typecheck": "turbo run typecheck",
     "audit": "pnpm -r --if-present run audit",
     "audit:fix": "pnpm -r --if-present run audit:fix",
-    "audit:fix-force": "pnpm -r --if-present run audit:fix-force"
+    "audit:fix-force": "pnpm -r --if-present run audit:fix-force",
+    "prepare": "husky"
   },
   "author": "Michael Martin",
   "license": "MIT",
@@ -34,6 +35,7 @@
     "eslint-config-prettier": "catalog:",
     "eslint-plugin-react-hooks": "catalog:",
     "globals": "catalog:",
+    "husky": "catalog:",
     "lint-staged": "catalog:",
     "prettier": "catalog:",
     "tsdown": "catalog:",

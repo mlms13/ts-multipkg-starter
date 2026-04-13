@@ -53,7 +53,8 @@ const baseRules = {
   // General rules
   '@typescript-eslint/prefer-nullish-coalescing': 'error',
   '@typescript-eslint/prefer-optional-chain': 'error',
-  '@typescript-eslint/strict-boolean-expressions': 'warn',
+  '@typescript-eslint/strict-boolean-expressions': 'error',
+  'no-implicit-coercion': ['error', { boolean: true }],
   '@typescript-eslint/no-unnecessary-condition': 'error',
   complexity: ['warn', 15],
   'max-depth': ['warn', 6],

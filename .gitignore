@@ -43,6 +43,9 @@ coverage/
 # Turborepo
 .turbo/
 
+# Agent-specific config should symlink to `.agents``
+.claude
+
 # IDE files
 .vscode/
 .idea/

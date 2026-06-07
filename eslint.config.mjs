@@ -4,6 +4,11 @@ import tsparser from '@typescript-eslint/parser';
 import prettierConfig from 'eslint-config-prettier';
 import reactHooks from 'eslint-plugin-react-hooks';
 import globals from 'globals';
+import { readFileSync, readdirSync } from 'node:fs';
+import { join } from 'node:path';
+
+const rootDir = import.meta.dirname || process.cwd();
+const packagesDir = join(rootDir, 'packages');
 
 // Node.js globals for server code (process, Buffer, __dirname, etc.)
 const serverGlobals = Object.fromEntries(
@@ -69,70 +74,74 @@ const basePlugins = {
   prettier: prettierConfig,
 };
 
-export default [
-  // Server rules
-  {
-    files: ['packages/server/src/**/*.{ts,tsx}'],
-    languageOptions: {
-      ...baseParser,
-      parserOptions: {
-        ...baseParser.parserOptions,
-        project: './packages/server/tsconfig.json',
-        tsconfigRootDir: import.meta.dirname || process.cwd(),
-      },
-      globals: serverGlobals,
-    },
-    plugins: {
-      ...basePlugins,
-    },
-    rules: {
-      ...baseRules,
-    },
+// Presets keyed by projectType. Adding a new type means adding an entry here.
+const presets = {
+  backend: {
+    globals: serverGlobals,
+    plugins: basePlugins,
+    rules: baseRules,
   },
-
-  // Library rules (isomorphic - no globals; add by hand if needed)
-  {
-    files: ['packages/library/src/**/*.{ts,tsx}'],
-    languageOptions: {
-      ...baseParser,
-      parserOptions: {
-        ...baseParser.parserOptions,
-        project: './packages/library/tsconfig.json',
-        tsconfigRootDir: import.meta.dirname || process.cwd(),
-      },
-    },
-    plugins: {
-      ...basePlugins,
-    },
-    rules: {
-      ...baseRules,
-    },
-  },
-
-  // Client library rules (browser globals, React Hooks)
-  {
-    files: ['packages/client/src/**/*.{ts,tsx}'],
-    languageOptions: {
-      ...baseParser,
-      parserOptions: {
-        ...baseParser.parserOptions,
-        project: './packages/client/tsconfig.json',
-        tsconfigRootDir: import.meta.dirname || process.cwd(),
-      },
-      globals: clientGlobals,
-    },
-    plugins: {
-      ...basePlugins,
-      'react-hooks': reactHooks,
-    },
+  frontend: {
+    globals: clientGlobals,
+    plugins: { ...basePlugins, 'react-hooks': reactHooks },
     rules: {
       ...baseRules,
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
     },
   },
+  // Isomorphic packages get no globals — add by hand in source if needed.
+  isomorphic: {
+    plugins: basePlugins,
+    rules: baseRules,
+  },
+};
 
-  // Test files (relaxed console/any usage, no globals)
+// Discover packages and their declared projectType. Single source of truth.
+const workspacePackages = readdirSync(packagesDir, { withFileTypes: true })
+  .filter(d => d.isDirectory())
+  .map(d => {
+    const pkg = JSON.parse(
+      readFileSync(join(packagesDir, d.name, 'package.json'), 'utf-8')
+    );
+    if (!pkg.projectType) {
+      throw new Error(
+        `packages/${d.name}/package.json is missing "projectType". ` +
+          `Set one of: ${Object.keys(presets).join(', ')}.`
+      );
+    }
+    if (!presets[pkg.projectType]) {
+      throw new Error(
+        `Unknown projectType "${pkg.projectType}" in packages/${d.name}/package.json. ` +
+          `Known: ${Object.keys(presets).join(', ')}.`
+      );
+    }
+    return { dir: d.name, projectType: pkg.projectType };
+  });
+
+const blockForPackage = ({ dir, projectType }) => {
+  const preset = presets[projectType];
+  return {
+    files: [`packages/${dir}/src/**/*.{ts,tsx}`],
+    languageOptions: {
+      ...baseParser,
+      parserOptions: {
+        ...baseParser.parserOptions,
+        project: `./packages/${dir}/tsconfig.json`,
+        tsconfigRootDir: rootDir,
+      },
+      ...(preset.globals && { globals: preset.globals }),
+    },
+    plugins: preset.plugins,
+    rules: preset.rules,
+  };
+};
+
+export default [
+  ...workspacePackages.map(blockForPackage),
+
+  // Test files (relaxed console/any usage, no globals). Project list is
+  // auto-generated from discovered packages.
   {
     files: [
       'packages/*/src/**/*.{test,spec}.{ts,tsx}',
@@ -143,22 +152,14 @@ export default [
       ...baseParser,
       parserOptions: {
         ...baseParser.parserOptions,
-        // Test files will use their package's tsconfig
-        // Note: TypeScript ESLint parser doesn't support globs well, so we
-        // use a more permissive approach - each package's tsconfig will be used
-        // when linting files from that package
-        project: [
-          './packages/server/tsconfig.json',
-          './packages/client/tsconfig.json',
-          './packages/library/tsconfig.json',
-        ],
-        tsconfigRootDir: import.meta.dirname || process.cwd(),
+        project: workspacePackages.map(
+          p => `./packages/${p.dir}/tsconfig.json`
+        ),
+        tsconfigRootDir: rootDir,
       },
       // No globals - test helpers like describe, expect, etc. must be imported
     },
-    plugins: {
-      ...basePlugins,
-    },
+    plugins: basePlugins,
     rules: {
       ...baseRules,
       '@typescript-eslint/no-non-null-assertion': 'off', // Allowed in tests

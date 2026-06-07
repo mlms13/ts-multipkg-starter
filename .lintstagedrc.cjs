@@ -5,20 +5,8 @@
 //==============================================================================
 
 module.exports = {
-  // TypeScript and TSX files in the server package
-  'packages/server/{src,tests,__tests__}/**/*.{ts,tsx}': [
-    'eslint --fix',
-    'prettier --write',
-  ],
-
-  // TypeScript and TSX files in the client package
-  'packages/client/{src,tests,__tests__}/**/*.{ts,tsx}': [
-    'eslint --fix',
-    'prettier --write',
-  ],
-
-  // TypeScript and TSX files in the library package
-  'packages/library/{src,tests,__tests__}/**/*.{ts,tsx}': [
+  // TypeScript and TSX files in any workspace package
+  'packages/*/{src,tests,__tests__}/**/*.{ts,tsx}': [
     'eslint --fix',
     'prettier --write',
   ],

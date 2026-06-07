@@ -2,6 +2,7 @@
   "name": "@my-project/server",
   "version": "1.0.0",
   "private": true,
+  "projectType": "backend",
   "type": "module",
   "main": "dist/index.mjs",
   "scripts": {

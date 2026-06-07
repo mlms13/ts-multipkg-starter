@@ -2,6 +2,7 @@
   "name": "@my-project/library",
   "version": "1.0.0",
   "private": true,
+  "projectType": "isomorphic",
   "type": "module",
   "main": "dist/index.mjs",
   "module": "dist/index.mjs",

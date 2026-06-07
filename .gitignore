@@ -46,6 +46,9 @@ coverage/
 # Agent-specific config should symlink to `.agents``
 .claude
 
+# Local scratch space
+.scratch/
+
 # IDE files
 .vscode/
 .idea/

@@ -1,2 +1,9 @@
 npx lint-staged
-npx turbo run typecheck build test --filter='...[HEAD]'
+
+# On the initial commit there is no HEAD to diff against, so run across all
+# packages; otherwise only check packages affected since the last commit.
+if git rev-parse --verify HEAD >/dev/null 2>&1; then
+  npx turbo run typecheck build test --filter='...[HEAD]'
+else
+  npx turbo run typecheck build test
+fi

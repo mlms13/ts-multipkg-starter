@@ -1,0 +1,31 @@
+{
+  "name": "@my-project/configs",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./eslint": "./eslint/index.mjs",
+    "./vitest": {
+      "types": "./vitest/index.d.mts",
+      "default": "./vitest/index.mjs"
+    },
+    "./prettier": "./prettier/index.js",
+    "./tsconfig.base.json": "./tsconfig/base.json"
+  },
+  "prettier": "./prettier/index.js",
+  "scripts": {
+    "lint": "echo 'No linting for config package'",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write ."
+  },
+  "dependencies": {
+    "@eslint/js": "catalog:",
+    "@trivago/prettier-plugin-sort-imports": "catalog:",
+    "@typescript-eslint/eslint-plugin": "catalog:",
+    "@typescript-eslint/parser": "catalog:",
+    "eslint-config-prettier": "catalog:",
+    "eslint-plugin-react-hooks": "catalog:",
+    "globals": "catalog:",
+    "vitest": "catalog:"
+  }
+}

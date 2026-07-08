@@ -2,8 +2,8 @@
   "name": "@my-project/client",
   "version": "1.0.0",
   "private": true,
-  "projectType": "frontend",
   "type": "module",
+  "prettier": "@my-project/configs/prettier",
   "main": "dist/index.browser.js",
   "exports": {
     ".": "./dist/index.browser.js"
@@ -27,5 +27,7 @@
   "dependencies": {
     "@my-project/library": "workspace:*"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@my-project/configs": "workspace:*"
+  }
 }

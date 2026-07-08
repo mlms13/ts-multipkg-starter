@@ -2,8 +2,8 @@
   "name": "@my-project/library",
   "version": "1.0.0",
   "private": true,
-  "projectType": "isomorphic",
   "type": "module",
+  "prettier": "@my-project/configs/prettier",
   "main": "dist/index.mjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.mts",
@@ -30,5 +30,7 @@
     "audit:fix": "pnpm audit fix"
   },
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "@my-project/configs": "workspace:*"
+  }
 }

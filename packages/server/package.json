@@ -2,8 +2,8 @@
   "name": "@my-project/server",
   "version": "1.0.0",
   "private": true,
-  "projectType": "backend",
   "type": "module",
+  "prettier": "@my-project/configs/prettier",
   "main": "dist/index.mjs",
   "scripts": {
     "build": "tsdown",
@@ -29,6 +29,7 @@
     "fastify": "catalog:"
   },
   "devDependencies": {
+    "@my-project/configs": "workspace:*",
     "@types/node": "catalog:"
   }
 }

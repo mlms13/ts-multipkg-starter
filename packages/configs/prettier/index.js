@@ -1,4 +1,7 @@
-module.exports = {
+// Shared Prettier config for @my-project packages. Referenced from each
+// package's "prettier": "@my-project/configs/prettier" field (the repo root
+// uses it too).
+export default {
   // Basic formatting
   semi: true,
   trailingComma: 'es5',

@@ -11,11 +11,12 @@ This template makes some assumptions about project structure (e.g. it's currentl
 1. Clone this repo
 2. Edit `name`, `description`, and `author` in the root `package.json`
 3. Edit the IIFE `name` in `packages/client/tsdown.config.ts` if you publish a browser build—the default `"Client"` is generic and may collide with other scripts
-4. Edit `eslint.config.mjs` to customize paths to packages (currently expects `packages/server` and `packages/client`)
-  - The server gets Node globals
-  - The client gets browser globals and React Hooks rules.
-5. **Not Using React?** Update `jsx` option in `tsconfig.base.json` and hooks-specific rules in `eslint.config.mjs`
-6. **Not Using Vitest?** Update import order in `.prettierrc.cjs`
+4. Shared configs live in `packages/configs` (`@my-project/configs`). Each package's `eslint.config.mjs` imports the preset matching its runtime environment (`server` | `client` | `isomorphic`):
+  - `server` gets Node globals
+  - `client` gets browser globals and React Hooks rules
+  - `isomorphic` gets neither; customize the presets in `packages/configs/eslint/index.mjs`
+5. **Not Using React?** Update the `jsx` option in `packages/configs/tsconfig/base.json` and the hooks rules in `packages/configs/eslint/index.mjs`
+6. **Not Using Vitest?** Update import order in `packages/configs/prettier/index.js`
 7. **Not Using Fastify/Dotenv?** Update dependencies in `packages/server/package.json`
 8. Replace this README with your own content
 

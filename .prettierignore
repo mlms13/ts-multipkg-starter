@@ -2,3 +2,6 @@ node_modules
 dist
 coverage
 *.md
+
+# Generated lockfile — not Prettier's to format
+pnpm-lock.yaml

@@ -27,7 +27,7 @@
     "format:fix": "prettier --write \"src/**/*.{ts,tsx,json,md}\"",
     "typecheck": "tsc --noEmit",
     "audit": "pnpm audit --audit-level=moderate",
-    "audit:fix": "pnpm audit fix"
+    "audit:fix": "pnpm audit --fix"
   },
   "dependencies": {},
   "devDependencies": {

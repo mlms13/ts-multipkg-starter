@@ -6,6 +6,7 @@
   },
   "include": [
     "*.ts",
+    "*.mts",
     "packages/*/vitest.config.ts",
     "packages/*/tsdown.config.ts"
   ]

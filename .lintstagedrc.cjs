@@ -11,10 +11,13 @@ module.exports = {
     'prettier --write',
   ],
 
-  // JSON, Markdown, and other files - format only
-  'packages/*/src/**/*.{json,md}': ['prettier --write'],
+  // CSS, JSON, Markdown, and other files - format only
+  'packages/*/src/**/*.{css,json,md}': ['prettier --write'],
   '*.{json,md}': ['prettier --write'],
 
-  // Root-level config files
-  '*.{js,mjs,cjs,ts,json}': ['prettier --write'],
+  // Root-level TS config files are covered by the root eslint.config.mjs
+  '*.{ts,mts}': ['eslint --fix', 'prettier --write'],
+
+  // Other root-level config files
+  '*.{js,mjs,cjs,json}': ['prettier --write'],
 };

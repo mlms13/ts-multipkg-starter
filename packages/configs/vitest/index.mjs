@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitest/config';
+import { configDefaults, defineConfig } from 'vitest/config';
 
 /**
  * Base Vitest configuration shared by all @my-project packages. Each package's
@@ -18,6 +18,9 @@ export const baseConfig = {
       'tests/**/*.{test,spec}.{ts,tsx}',
       '__tests__/**/*.{test,spec}.{ts,tsx}',
     ],
+    // Keep vitest's default excludes; helpers are imported by tests, never
+    // collected as test entry points themselves.
+    exclude: [...configDefaults.exclude, '**/tests/helpers/**'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],

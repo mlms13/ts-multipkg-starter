@@ -1,13 +1,16 @@
 // Shared ESLint flat-config presets for @my-project packages.
 //
-// Each package owns a tiny eslint.config.mjs that imports the preset matching
-// its runtime environment and passes its own directory (to anchor typed
-// linting):
+// Each package owns a tiny eslint.config.mjs that re-exports the preset
+// matching its runtime environment:
 //   import { server } from '@my-project/configs/eslint';
-//   export default server(import.meta.dirname);
+//   export default server;
 //
 // Presets: server (Node globals), client (browser globals + React Hooks
-// rules), isomorphic (no globals — import what you need in source).
+// rules), isomorphic (no globals — import what you need in source), rootConfig
+// (repo-root TS config files; re-exported by the root eslint.config.mjs).
+//
+// Typed linting uses projectService, which auto-discovers each linted file's
+// nearest tsconfig — so presets need no per-package path anchoring.
 import js from '@eslint/js';
 import tseslint from '@typescript-eslint/eslint-plugin';
 import tsparser from '@typescript-eslint/parser';
@@ -70,28 +73,27 @@ const basePlugins = {
   '@typescript-eslint': tseslint,
 };
 
-// Build the flat config for one package. File globs resolve relative to the
-// package's own eslint.config.mjs; `packageDir` anchors ./tsconfig.json for
-// typed linting.
-function createPreset(
-  packageDir,
-  { globals: presetGlobals, plugins: presetPlugins, rules: presetRules } = {}
-) {
-  const languageOptions = {
-    parser: tsparser,
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: 'module',
-      project: './tsconfig.json',
-      tsconfigRootDir: packageDir,
-    },
-  };
+const baseLanguageOptions = {
+  parser: tsparser,
+  parserOptions: {
+    ecmaVersion: 2020,
+    sourceType: 'module',
+    projectService: true,
+  },
+};
 
+// Build the flat config for one package. File globs resolve relative to the
+// package's own eslint.config.mjs.
+function createPreset({
+  globals: presetGlobals,
+  plugins: presetPlugins,
+  rules: presetRules,
+} = {}) {
   return [
     {
       files: ['src/**/*.{ts,tsx}'],
       languageOptions: {
-        ...languageOptions,
+        ...baseLanguageOptions,
         ...(presetGlobals && { globals: presetGlobals }),
       },
       plugins: { ...basePlugins, ...presetPlugins },
@@ -105,7 +107,7 @@ function createPreset(
         'tests/**/*.{ts,tsx}',
         '__tests__/**/*.{ts,tsx}',
       ],
-      languageOptions,
+      languageOptions: baseLanguageOptions,
       plugins: basePlugins,
       rules: {
         ...baseRules,
@@ -117,18 +119,32 @@ function createPreset(
   ];
 }
 
-export const server = packageDir =>
-  createPreset(packageDir, { globals: serverGlobals });
+export const server = createPreset({ globals: serverGlobals });
 
-export const client = packageDir =>
-  createPreset(packageDir, {
-    globals: clientGlobals,
-    plugins: { 'react-hooks': reactHooks },
-    rules: {
-      'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'warn',
-    },
-  });
+export const client = createPreset({
+  globals: clientGlobals,
+  plugins: { 'react-hooks': reactHooks },
+  rules: {
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
+  },
+});
 
 // No globals... add by hand in source if needed
-export const isomorphic = packageDir => createPreset(packageDir);
+export const isomorphic = createPreset();
+
+// Repo-root TS config files (tsdown.base.config.ts etc.), covered by the root
+// tsconfig.json. Globs resolve relative to the root eslint.config.mjs.
+// Package files are NOT matched here — each package's own config is
+// authoritative for its files.
+export const rootConfig = [
+  {
+    files: ['*.ts', '*.mts'],
+    languageOptions: {
+      ...baseLanguageOptions,
+      globals: serverGlobals,
+    },
+    plugins: basePlugins,
+    rules: baseRules,
+  },
+];

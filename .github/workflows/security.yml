@@ -1,0 +1,43 @@
+name: Security Audit
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  schedule:
+    - cron: '0 2 * * *' # daily at 2 AM UTC
+
+jobs:
+  security-audit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # The gate: high/critical advisories fail the run.
+      - name: Audit (fail on high severity)
+        run: pnpm audit --audit-level=high
+
+      # Informational only — surfaces lower-severity advisories and stale
+      # deps in the logs without failing the run.
+      - name: Audit report (all severities)
+        if: always()
+        run: pnpm audit || true
+
+      - name: Outdated report
+        if: always()
+        run: pnpm outdated -r || true

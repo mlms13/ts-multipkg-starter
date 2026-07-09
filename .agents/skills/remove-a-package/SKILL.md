@@ -31,8 +31,7 @@ depend on can't be removed in isolation.
 3. Prune orphaned dependencies — follow the policy below.
 4. `README.md`: grep for `$PKG` and `$WSNAME`; drop what no longer applies.
 5. `pnpm install`
-6. Verify: `pnpm run lint && pnpm run typecheck && pnpm run build && pnpm test`;
-   Fix anything broken before reporting done.
+6. Verify: `pnpm run check`; fix anything broken before reporting done.
 
 ## Dependency pruning policy
 

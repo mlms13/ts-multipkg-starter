@@ -1,9 +1,13 @@
 npx lint-staged
 
+# Typecheck only — tests and build are deliberately excluded so that
+# failing-tests-first (TDD) work doesn't block commits. CI runs the full
+# `check` gate.
+#
 # On the initial commit there is no HEAD to diff against, so run across all
 # packages; otherwise only check packages affected since the last commit.
 if git rev-parse --verify HEAD >/dev/null 2>&1; then
-  npx turbo run typecheck build test --filter='...[HEAD]'
+  pnpm run typecheck:affected
 else
-  npx turbo run typecheck build test
+  pnpm run typecheck
 fi

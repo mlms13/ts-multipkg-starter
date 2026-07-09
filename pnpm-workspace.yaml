@@ -1,22 +1,37 @@
 packages:
   - 'packages/*'
 
+# Shared dependency versions. Packages reference these with "catalog:" so every
+# workspace stays on one pinned version. Update here, not in package.json files.
 catalog:
   '@eslint/js': ^10.0.1
   '@trivago/prettier-plugin-sort-imports': ^6.0.2
-  '@typescript-eslint/eslint-plugin': ^8.58.0
-  '@typescript-eslint/parser': ^8.58.0
-  eslint: ^10.1.0
+  '@typescript-eslint/eslint-plugin': ^8.63.0
+  '@typescript-eslint/parser': ^8.63.0
+  eslint: ^10.6.0
   eslint-config-prettier: ^10.1.8
-  eslint-plugin-react-hooks: ^7.0.1
-  globals: ^17.4.0
+  eslint-plugin-react-hooks: ^7.1.1
+  globals: ^17.7.0
   husky: ^9.1.7
-  lint-staged: ^16.4.0
-  prettier: ^3.8.1
-  tsdown: ^0.21.7
-  turbo: ^2.9.1
-  typescript: ^6.0.2
-  vitest: ^4.1.2
-  '@types/node': ^25.5.0
-  dotenv: ^17.3.1
-  fastify: ^5.8.4
+  lint-staged: ^17.0.8
+  prettier: ^3.9.4
+  tsdown: ^0.22.4
+  turbo: ^2.10.4
+  # typescript stays on 6.x: typescript-eslint (and the tsc-based typecheck
+  # scripts) don't support the native TS 7 compiler yet.
+  typescript: ^6.0.3
+  vitest: ^4.1.10
+  '@types/node': ^26.1.1
+  dotenv: ^17.4.2
+  fastify: ^5.10.0
+
+# Dependencies allowed to run install-time build scripts.
+allowBuilds:
+  esbuild: true
+
+# Escape hatch for pnpm's minimum-release-age supply-chain delay: versions
+# listed here may install before they've aged past the threshold. pnpm appends
+# entries automatically when an install needs one; prune when bumping past them.
+minimumReleaseAgeExclude:
+  - '@types/node@26.1.1'
+  - tsdown@0.22.4

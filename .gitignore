@@ -20,10 +20,8 @@ out/
 .env.production.local
 
 # Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
+*.log
+*.log.*
 
 # Runtime data
 pids

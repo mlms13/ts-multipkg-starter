@@ -1,7 +1,11 @@
 node_modules
 dist
+build
 coverage
-*.md
+.turbo
+
+# Machine-local agent settings
+.claude/settings.local.json
 
 # Generated lockfile — not Prettier's to format
 pnpm-lock.yaml

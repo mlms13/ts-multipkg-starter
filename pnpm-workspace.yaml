@@ -19,7 +19,7 @@ catalog:
   turbo: ^2.10.4
   # typescript stays on 6.x: typescript-eslint (and the tsc-based typecheck
   # scripts) don't support the native TS 7 compiler yet.
-  typescript: ^6.0.3
+  typescript: ^7.0.2
   vitest: ^4.1.10
   '@types/node': ^26.1.1
   dotenv: ^17.4.2

@@ -1,8 +1,7 @@
 {
   "extends": "@my-project/configs/tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "dist",
-    "noEmit": false
+    "jsx": "react-jsx"
   },
   "include": ["src/**/*", "tests/**/*", "__tests__/**/*"]
 }

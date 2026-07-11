@@ -1,8 +1,4 @@
 {
   "extends": "@my-project/configs/tsconfig.base.json",
-  "compilerOptions": {
-    "outDir": "dist",
-    "noEmit": false
-  },
   "include": ["src/**/*", "tests/**/*", "__tests__/**/*"]
 }

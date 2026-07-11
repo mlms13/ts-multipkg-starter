@@ -41,7 +41,7 @@ coverage/
 # Turborepo
 .turbo/
 
-# Agent-specific config should symlink to `.agents``
+# Agent-specific config should symlink to `.agents`
 .claude
 
 # Local scratch space

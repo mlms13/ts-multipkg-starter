@@ -40,7 +40,12 @@ This template makes some assumptions about project structure (e.g. it's currentl
 
 - `eslint` with most TS defaults, plus extra strictness
 - `prettier` with trailing commas, semicolons, and import sorting
-- Husky enforcing linting, formatting, tests, and build pre-commit
+- Husky running lint-staged and affected-package typechecks pre-commit; tests and build are deliberately left to CI so failing-tests-first (TDD) work can be committed
+- `pnpm run check` runs the full gate (symlinks, typecheck, lint, test, build, format) — CI runs exactly this script
+
+### Recommended Agent Skills
+
+The template ships only repo-specific skills (see `.agents/skills/`). For general engineering-workflow skills — PRD writing, ADR and domain-glossary upkeep, TDD — we recommend installing from [mattpocock/skills](https://github.com/mattpocock/skills) per project rather than bundling them here. Ones that have proven useful alongside this template: `grill-with-docs`, `to-prd`, `improve-codebase-architecture`, and `tdd`. They bring their own document conventions (a `CONTEXT.md` glossary, numbered ADRs under `docs/adr/`) — adopt those in the projects that want them.
 
 ### Script Conventions
 

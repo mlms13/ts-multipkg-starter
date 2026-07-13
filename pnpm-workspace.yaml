@@ -8,14 +8,14 @@ catalog:
   '@trivago/prettier-plugin-sort-imports': ^6.0.2
   '@typescript-eslint/eslint-plugin': ^8.63.0
   '@typescript-eslint/parser': ^8.63.0
-  eslint: ^10.6.0
+  eslint: ^10.7.0
   eslint-config-prettier: ^10.1.8
   eslint-plugin-react-hooks: ^7.1.1
   globals: ^17.7.0
   husky: ^9.1.7
   lint-staged: ^17.0.8
-  prettier: ^3.9.4
-  tsdown: ^0.22.4
+  prettier: ^3.9.5
+  tsdown: ^0.22.5
   turbo: ^2.10.4
   # typescript stays on 6.x: typescript-eslint (and the tsc-based typecheck
   # scripts) don't support the native TS 7 compiler yet.

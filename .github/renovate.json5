@@ -1,0 +1,6 @@
+{
+  // This repo dogfoods the same preset it publishes for downstream projects.
+  // Edit policy in .github/renovate-preset.json5, not here.
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: ['github>mlms13/ts-multipkg-starter//.github/renovate-preset.json5'],
+}

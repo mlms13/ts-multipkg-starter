@@ -1,0 +1,33 @@
+{
+  // Shared Renovate policy for projects started from ts-multipkg-starter.
+  // Downstream repos extend this preset via
+  //   github>mlms13/ts-multipkg-starter//.github/renovate-preset.json5
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+
+  extends: ['config:recommended'],
+  semanticCommits: 'enabled',
+  labels: ['dependencies'],
+
+  timezone: 'America/Denver',
+  schedule: ['before 9am on monday'],
+
+  // pnpm limits to 24h, this policy is intentionally even longer to avoid
+  // any awkward timing gaps
+  minimumReleaseAge: '2 days',
+  prConcurrentLimit: 10,
+
+  packageRules: [
+    {
+      // normal (non-node-version, non-gh-actions) versions get grouped
+      description: 'One weekly PR for all non-major npm bumps; majors stay individual so each gets its own review.',
+      matchManagers: ['npm'],
+      matchUpdateTypes: ['minor', 'patch'],
+      groupName: 'all non-major dependencies',
+    },
+    {
+      description: 'Action bumps are low-risk and reviewed together, majors included.',
+      matchManagers: ['github-actions'],
+      groupName: 'github-actions',
+    },
+  ],
+}

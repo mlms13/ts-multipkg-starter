@@ -29,6 +29,11 @@ from it. Some entries originated in downstream forks.
 
 ### Changed
 
+- **Renovate replaces Dependabot** — Dependabot's pnpm-catalog support kept
+  producing PRs that failed CI. Shared policy lives in
+  `.github/renovate-preset.json5`; forks inherit it by extending
+  `github>mlms13/ts-multipkg-starter//.github/renovate-preset.json5`.
+- **pnpm `minimumReleaseAge` pinned to 24h**
 - **ESLint presets auto-locate tsconfigs** — typescript-eslint's
   `projectService` replaces manual per-package anchoring, so each package's
   ESLint config shrinks to a bare re-export of its preset.

@@ -29,9 +29,10 @@ catalog:
 allowBuilds:
   esbuild: true
 
-# Escape hatch for pnpm's minimum-release-age supply-chain delay: versions
-# listed here may install before they've aged past the threshold. pnpm appends
-# entries automatically when an install needs one; prune when bumping past them.
+# 24h delay for supply-chain safety
+minimumReleaseAge: 1440
+
+# escape hatch for packages that ignore the release age cooldown
 minimumReleaseAgeExclude:
   - '@types/node@26.1.1'
   - tsdown@0.22.4

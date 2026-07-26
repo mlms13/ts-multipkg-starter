@@ -29,7 +29,8 @@ catalog:
 allowBuilds:
   esbuild: true
 
-# 24h delay for supply-chain safety
+# 24h delay for supply-chain safety. This is the only guard on transitive deps:
+# Renovate's own 2-day delay doesn't apply when it regenerates the lockfile.
 minimumReleaseAge: 1440
 
 # escape hatch for packages that ignore the release age cooldown

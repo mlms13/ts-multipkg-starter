@@ -34,6 +34,9 @@ from it. Some entries originated in downstream forks.
   `.github/renovate-preset.json5`; forks inherit it by extending
   `github>mlms13/ts-multipkg-starter//.github/renovate-preset.json5`.
 - **pnpm `minimumReleaseAge` pinned to 24h**
+- **Weekly lockfile maintenance** — Renovate tracks only direct deps, so
+  transitive ones never moved. Also enables `osvVulnerabilityAlerts`. Forks
+  should turn on Dependabot alerts in repo settings: Renovate reads them
 - **ESLint presets auto-locate tsconfigs** — typescript-eslint's
   `projectService` replaces manual per-package anchoring, so each package's
   ESLint config shrinks to a bare re-export of its preset.

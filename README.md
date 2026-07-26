@@ -18,7 +18,8 @@ This template makes some assumptions about project structure (e.g. it's currentl
 5. **Not Using React?** Update the `jsx` option in `packages/configs/tsconfig/base.json` and the hooks rules in `packages/configs/eslint/index.mjs`
 6. **Not Using Vitest?** Update import order in `packages/configs/prettier/index.js`
 7. **Not Using Fastify/Dotenv?** Update dependencies in `packages/server/package.json`
-8. Replace this README with your own content
+8. **Dependency updates** — Enable **Dependabot alerts** under Settings → Code security
+9. Replace this README with your own content
 
 ## Tooling and Opinions
 
@@ -42,6 +43,14 @@ This template makes some assumptions about project structure (e.g. it's currentl
 - `prettier` with trailing commas, semicolons, and import sorting
 - Husky running lint-staged and affected-package typechecks pre-commit; tests and build are deliberately left to CI so failing-tests-first (TDD) work can be committed
 - `pnpm run check` runs the full gate (symlinks, typecheck, lint, test, build, format) — CI runs exactly this script
+
+### Dependency Updates
+
+- Renovate, with shared policy in `.github/renovate-preset.json5` — forks extend it by URL rather than copying, so policy changes reach them at runtime
+- one grouped weekly PR for non-major bumps; majors, Node versions, and GitHub Actions each get their own
+- weekly lockfile maintenance, because Renovate tracks only direct deps — transitive ones move when the lockfile is regenerated
+- `minimumReleaseAge` set in both Renovate (2 days) and pnpm (24h). Renovate's is deliberately the stricter of the two; pnpm's is what covers transitive deps
+- daily security audit workflow, failing on high-severity advisories
 
 ### Recommended Agent Skills
 

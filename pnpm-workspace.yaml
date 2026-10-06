@@ -37,3 +37,5 @@ minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
   - '@types/node@26.1.1'
   - tsdown@0.22.4
+  # Renovate security update: vitest@4.1.11
+  - vitest@4.1.11
